@@ -7,7 +7,7 @@ export default function App() {
   const [antigo, setAntigo] = useState('');
 
   function clicaNumero(Num) {
-    // Se o número atual for '0', substitui pelo novo. Se não, concatena.
+    
     if (numero === '0') {
       setNumero(Num);
     } else {
@@ -16,14 +16,14 @@ export default function App() {
   }
 
   function clicaOperacao(operacao) {
-    // Só passa para a operação se houver um número digitado
+    
     setAntigo(numero);
     setConta(operacao);
     setNumero('0');
   }
 
   function resultado() {
-    if (!antigo || !conta) return; // Evita erro se clicar em "=" sem operação
+    if (!antigo || !conta) return; 
 
     let n1 = parseFloat(antigo);
     let n2 = parseFloat(numero);
