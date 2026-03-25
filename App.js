@@ -7,6 +7,7 @@ export default function App() {
   const [antigo, setAntigo] = useState('');
 
   function clicaNumero(Num) {
+    // Se o número atual for '0', substitui pelo novo. Se não, concatena.
     if (numero === '0') {
       setNumero(Num);
     } else {
@@ -15,12 +16,15 @@ export default function App() {
   }
 
   function clicaOperacao(operacao) {
+    // Só passa para a operação se houver um número digitado
     setAntigo(numero);
     setConta(operacao);
     setNumero('0');
   }
 
   function resultado() {
+    if (!antigo || !conta) return; // Evita erro se clicar em "=" sem operação
+
     let n1 = parseFloat(antigo);
     let n2 = parseFloat(numero);
     let r = 0;
@@ -43,11 +47,12 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.fundo}>
-      <Text style={styles.titulo}>
-        Calculadora
-      </Text>
+      <Text style={styles.titulo}>Calculadora</Text>
       
       <View style={styles.visor}>
+        {antigo !== '' && (
+          <Text style={styles.txtHistorico}>{antigo} {conta}</Text>
+        )}
         <Text style={styles.txtVisor}>{numero}</Text>
       </View>
 
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
   },
   visor: {
     backgroundColor: '#fff',
-    height: 80,
+    height: 100, 
     margin: 20,
     borderWidth: 2,
     borderColor: '#ccc',
@@ -109,9 +114,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
   },
+  txtHistorico: {
+    fontSize: 18,
+    color: '#888', 
+  },
   txtVisor: {
     fontSize: 40,
     color: '#000',
+    fontWeight: 'bold',
   },
   botoes: {
     flex: 1,
