@@ -53,7 +53,7 @@ export default function App() {
   return (
     <PaperProvider theme={MD3LightTheme}>
       <SafeAreaView style={styles.fundo}>
-        <Text variant="headlineMedium" style={styles.titulo}>Calculadora Paper</Text>
+        <Text variant="headlineMedium" style={styles.titulo}>Calculadora</Text>
         
       
         <Surface style={styles.visor} elevation={2}>
