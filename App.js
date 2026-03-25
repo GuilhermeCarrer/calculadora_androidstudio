@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { 
+  Provider as PaperProvider, 
+  Text, 
+  Button, 
+  Surface, 
+  MD3LightTheme 
+} from 'react-native-paper';
 
 export default function App() {
   const [numero, setNumero] = useState('0');
@@ -7,7 +14,6 @@ export default function App() {
   const [antigo, setAntigo] = useState('');
 
   function clicaNumero(Num) {
-    
     if (numero === '0') {
       setNumero(Num);
     } else {
@@ -16,7 +22,6 @@ export default function App() {
   }
 
   function clicaOperacao(operacao) {
-    
     setAntigo(numero);
     setConta(operacao);
     setNumero('0');
@@ -46,116 +51,98 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.fundo}>
-      <Text style={styles.titulo}>Calculadora</Text>
+    <PaperProvider theme={MD3LightTheme}>
+      <SafeAreaView style={styles.fundo}>
+        <Text variant="headlineMedium" style={styles.titulo}>Calculadora Paper</Text>
+        
       
-      <View style={styles.visor}>
-        {antigo !== '' && (
-          <Text style={styles.txtHistorico}>{antigo} {conta}</Text>
-        )}
-        <Text style={styles.txtVisor}>{numero}</Text>
-      </View>
+        <Surface style={styles.visor} elevation={2}>
+          {antigo !== '' && (
+            <Text variant="bodyLarge" style={styles.txtHistorico}>{antigo} {conta}</Text>
+          )}
+          <Text variant="displaySmall" style={styles.txtVisor}>{numero}</Text>
+        </Surface>
 
-      <View style={styles.botoes}>
-        <View style={styles.fileira}>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('7')}><Text style={styles.txtBtn}>7</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('8')}><Text style={styles.txtBtn}>8</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('9')}><Text style={styles.txtBtn}>9</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.operador} onPress={() => clicaOperacao('/')}><Text style={styles.txtBtn}>/</Text></TouchableOpacity>
+        <View style={styles.botoes}>
+          <View style={styles.fileira}>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('7')}>7</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('8')}>8</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('9')}>9</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={() => clicaOperacao('/')}>/</Button>
+          </View>
+
+          <View style={styles.fileira}>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('4')}>4</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('5')}>5</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('6')}>6</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={() => clicaOperacao('*')}>*</Button>
+          </View>
+
+          <View style={styles.fileira}>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('1')}>1</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('2')}>2</Button>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('3')}>3</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={() => clicaOperacao('-')}>-</Button>
+          </View>
+
+          <View style={styles.fileira}>
+            <Button mode="contained" buttonColor="#4a4a4a" style={styles.btn} onPress={() => clicaNumero('0')}>0</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={limpa}>C</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={resultado}>=</Button>
+            <Button mode="contained" buttonColor="#ff9500" style={styles.btn} onPress={() => clicaOperacao('+')}>+</Button>
+          </View>
         </View>
 
-        <View style={styles.fileira}>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('4')}><Text style={styles.txtBtn}>4</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('5')}><Text style={styles.txtBtn}>5</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('6')}><Text style={styles.txtBtn}>6</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.operador} onPress={() => clicaOperacao('*')}><Text style={styles.txtBtn}>*</Text></TouchableOpacity>
-        </View>
-
-        <View style={styles.fileira}>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('1')}><Text style={styles.txtBtn}>1</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('2')}><Text style={styles.txtBtn}>2</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('3')}><Text style={styles.txtBtn}>3</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.operador} onPress={() => clicaOperacao('-')}><Text style={styles.txtBtn}>-</Text></TouchableOpacity>
-        </View>
-
-        <View style={styles.fileira}>
-          <TouchableOpacity style={styles.quadrado} onPress={() => clicaNumero('0')}><Text style={styles.txtBtn}>0</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={limpa}><Text style={styles.txtBtn}>C</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.quadrado} onPress={resultado}><Text style={styles.txtBtn}>=</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.operador} onPress={() => clicaOperacao('+')}><Text style={styles.txtBtn}>+</Text></TouchableOpacity>
-        </View>
-      </View>
-
-      <Text style={styles.rodape}>Feito por mim</Text>
-    </SafeAreaView>
+        <Text variant="bodySmall" style={styles.rodape}>Desenvolvido com React Native Paper</Text>
+      </SafeAreaView>
+    </PaperProvider>
   );
 }
 
 const styles = StyleSheet.create({
   fundo: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
   },
-  titulo: {
-    fontSize: 24,
+  titulo: { 
     textAlign: 'center',
-    fontWeight: 'bold',
     marginTop: 20,
-    color: '#333',
+    fontWeight: 'bold',
   },
   visor: {
-    backgroundColor: '#fff',
-    height: 100, 
+    height: 120, 
     margin: 20,
-    borderWidth: 2,
-    borderColor: '#ccc',
+    padding: 15,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    padding: 10,
-    borderRadius: 8,
+    borderRadius: 12,
+    backgroundColor: '#f9f9f9',
   },
   txtHistorico: {
-    fontSize: 18,
-    color: '#888', 
+    color: '#757575',
   },
   txtVisor: {
-    fontSize: 40,
-    color: '#000',
     fontWeight: 'bold',
+    color: '#212121',
   },
   botoes: {
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
   },
   fileira: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    marginBottom: 15,
   },
-  quadrado: {
-    backgroundColor: '#4a4a4a',
-    width: 70,
-    height: 70,
+  btn: {
+    width: '23%', 
+    height: 60,
     justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-  },
-  operador: {
-    backgroundColor: '#ff9500',
-    width: 70,
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8,
-  },
-  txtBtn: {
-    fontSize: 25,
-    color: '#fff',
-    fontWeight: 'bold',
   },
   rodape: {
     textAlign: 'center',
     marginBottom: 20,
-    color: '#666',
+    color: '#9e9e9e',
   },
 });
